@@ -80,7 +80,7 @@
     <script>
         // Fetch and display favorite photos on page load
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('favorhttp://localhost/WebFinal/favorites.php')
+            fetch('http://localhost/WebFinal/favorites.php')
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
