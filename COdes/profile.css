@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -12,14 +11,12 @@ body {
     display: flex;
 }
 
-/* Sidebar Styles */
 .sidebar {
     width: 280px;
     background: #b5c6e0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     height: 100vh;
-    position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
     border-right: 2px solid #103783;
@@ -57,11 +54,10 @@ body {
 
 .sidebar-links a:hover {
     color: #103783;
-    transform: scale(1.1); /* Slightly enlarges the icon */
-    text-shadow: 0 0 8px #103783; /* Adds a soft glow */
+    transform: scale(1.1);
+    text-shadow: 0 0 8px #103783;
 }
 
-/* Main content */
 .main-content {
     flex-grow: 1;
     background: #ebf4f5;
@@ -70,11 +66,9 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Sticky Navigation Bar */
 header {
     background: #b5c6e0;
     padding: 15px 20px;
-    position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -87,7 +81,6 @@ header {
     list-style: none;
     display: flex;
     justify-content: flex-end;
-    
 }
 
 .top-nav li {
@@ -95,7 +88,6 @@ header {
     margin-left: 20px;
 }
 
-/* Cute Hover Effect for Top Nav Icons */
 .top-nav a {
     text-decoration: none;
     color: #103783;
@@ -104,16 +96,15 @@ header {
     display: flex;
     align-items: center;
     transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
-    font-size: 24px; /* Adjust based on your icon size */
+    font-size: 24px;
 }
 
 .top-nav a:hover {
     color: #103783;
-    transform: scale(1.2); /* Slightly enlarges the icon */
-    text-shadow: 0 0 8px #103783; /* Adds a soft glow */
+    transform: scale(1.2);
+    text-shadow: 0 0 8px #103783;
 }
 
-/* Hover Text Effect for Top Nav */
 .top-nav li::after {
     content: attr(data-text);
     position: absolute;
@@ -138,7 +129,6 @@ header {
     opacity: 1;
 }
 
-/* Profile Page Styles */
 .profile {
     background: #ffffff;
     border-radius: 15px;
@@ -167,89 +157,82 @@ header {
 }
 
 .profile-info h1 {
-    margin: 0;
     font-size: 28px;
-    color: #103783;
-}
-
-.profile-info p {
-    margin: 5px 0;
-    color: #555;
-}
-
-.profile-statistics {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.stat {
-    text-align: center;
-    background: #9bafd9;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.stat h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #103783;
-}
-
-.stat p {
-    font-size: 24px;
     font-weight: 600;
     color: #103783;
 }
 
-.profile-bio {
-    margin-bottom: 20px;
-}
-
-.profile-bio h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #103783;
-}
-
-.profile-bio p {
+.profile-info p {
     font-size: 18px;
-    line-height: 1.6;
-    color: #555;
+    color: #333;
 }
 
-.profile-feed h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #103783;
+.profile-edit {
+    margin-top: 20px;
+}
+
+.profile-edit form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-edit label {
+    font-weight: 500;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.profile-edit input, 
+.profile-edit textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+.profile-edit button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #103783;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.profile-edit button:hover {
+    background-color: #0d2b5b;
+}
+
+.profile-feed {
+    margin-top: 40px;
 }
 
 .feed-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-.feed-item {
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
 }
 
 .feed-item img {
     width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 15px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+footer {
+    background-color: #103783;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0 0 15px 15px;
+    font-size: 14px;
 }
 
-footer {
-    background: #b5c6e0;
-    padding: 15px;
-    text-align: center;
-    border-top: 2px solid #103783;
-    border-radius: 15px;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-    color: #555;
+footer p {
+    margin: 0;
 }
