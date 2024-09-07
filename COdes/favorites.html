@@ -42,7 +42,7 @@
 
                 <!-- Section for Favourites -->
                 <section class="gallery-date">
-                    <div class="gallery-grid">
+                    <div id="gallery-grid" class="gallery-grid">
                         <!-- Example favourite items -->
                         <div class="gallery-item">
                             <img src="https://i.pinimg.com/474x/79/1b/3a/791b3a33b2ce3320ca1817310ad9ae58.jpg" alt="Favourited Image 1">
@@ -61,11 +61,8 @@
                             <div class="image-info">
                                 <p>Favourited Image 2</p>
                             </div>
-                        </div>
-                        <!-- Add more favourite items as needed -->
-                    </div>
+                        </div>                    </div>
                 </section>
-
             </main>
 
             <footer>
@@ -79,18 +76,54 @@
             </footer>
         </div>
     </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-    const sidebar = document.getElementById('sidebar');
-    const toggleButton = document.getElementById('sidebar-toggle');
-    const mainContent = document.querySelector('.main-content');
+        // Fetch and display favorite photos on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('favorites.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const galleryGrid = document.getElementById('gallery-grid');
+                        galleryGrid.innerHTML = '';  // Clear any existing content
 
-    toggleButton.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-        mainContent.classList.toggle('shifted');
-    });
-});
+                        // Populate favorite photos dynamically
+                        data.favorites.forEach(photo => {
+                            const galleryItem = document.createElement('div');
+                            galleryItem.classList.add('gallery-item');
 
+                            galleryItem.innerHTML = `
+                                <img src="${photo.image_path}" alt="${photo.title}">
+                                <div class="overlay">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="image-info">
+                                    <p>${photo.title}</p>
+                                </div>
+                                <form method="POST" action="favorites.php" class="favorite-form">
+                                    <input type="hidden" name="photo_id" value="${photo.id}">
+                                    <button type="submit" name="remove_from_favorites">Remove from Favourites</button>
+                                </form>
+                            `;
+
+                            galleryGrid.appendChild(galleryItem);
+                        });
+                    } else {
+                        alert(data.message);  // Show error message if any
+                    }
+                })
+                .catch(error => console.error('Error fetching favorites:', error));
+        });
+
+        // Sidebar toggle logic
+        const sidebarToggleBtn = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('.main-content');
+
+        sidebarToggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');  // Show/hide the sidebar
+            mainContent.classList.toggle('shifted');  // Shift the main content accordingly
+        });
     </script>
 </body>
 </html>
