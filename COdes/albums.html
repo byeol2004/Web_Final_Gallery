@@ -22,7 +22,7 @@
                 <li><a href="favorites.html"><i class="fas fa-heart"></i> Favourites</a></li>
                 <li><a href="home.html"><i class="fas fa-search"></i> Explore</a></li>
                 <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-                <li><a href="home.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </aside>
 
@@ -77,6 +77,15 @@
             </footer>
         </div>
     </div>
-    <script src="albums.js"></script>
+    <script>
+        const sidebarToggleBtn = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('.main-content');
+
+        sidebarToggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');  // Show/hide the sidebar
+            mainContent.classList.toggle('shifted');  // Shift the main content accordingly
+        });
+    </script>
 </body>
 </html>
