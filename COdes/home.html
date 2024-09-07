@@ -91,6 +91,29 @@
     </div>
 
     <script>
+        // Fetch and display photos
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://localhost/WebFinal/home.php')
+                .then(response => response.json())
+                .then(data => {
+                    const photoGrid = document.getElementById('photo-grid');
+                    photoGrid.innerHTML = ''; // Clear existing photos
+                    
+                    data.forEach(photo => {
+                        const photoCard = document.createElement('div');
+                        photoCard.className = 'photo-card';
+                        
+                        const img = document.createElement('img');
+                        img.src = 'uploads/' + photo.file_name; // Update path if needed
+                        img.alt = photo.caption;
+                        
+                        photoCard.appendChild(img);
+                        photoGrid.appendChild(photoCard);
+                    });
+                })
+                .catch(error => console.error('Error fetching photos:', error));
+        });
+        
         // Toggle the sidebar
 const sidebarToggleBtn = document.getElementById('sidebar-toggle');
 const sidebar = document.getElementById('sidebar');

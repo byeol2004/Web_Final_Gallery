@@ -40,10 +40,10 @@
             <main>
                 <section class="upload-section">
                     <h1>Upload Your Photo</h1>
-                    <form action="upload.php" method="post" enctype="multipart/form-data" class="upload-form">
+                    <form action="upload.php" method="post" class="upload-form">
                         <div class="form-group">
-                            <label for="photo">Choose Photo:</label>
-                            <input type="file" id="photo" name="image" accept="image/*" required>
+                            <label for="photo-url">Photo URL:</label>
+                            <input type="text" id="photo-url" name="photo_url" placeholder="Enter photo URL" required>
                         </div>
                         <div class="form-group">
                             <label for="caption">Caption:</label>
@@ -73,6 +73,25 @@
     </div>
 
     <script>
+         // Fetch and populate albums
+         document.addEventListener('DOMContentLoaded', function() {
+            fetch('fethttp://localhost/WebFinal/upload.php')
+                .then(response => response.json())
+                .then(data => {
+                    const albumSelect = document.getElementById('album');
+                    albumSelect.innerHTML = ''; // Clear existing options
+                    
+                    data.forEach(album => {
+                        const option = document.createElement('option');
+                        option.value = album.id;
+                        option.textContent = album.album_name;
+                        albumSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching albums:', error));
+        });
+
+        
         const sidebarToggleBtn = document.getElementById('sidebar-toggle');
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.querySelector('.main-content');
@@ -84,3 +103,4 @@
     </script>
 </body>
 </html>
+
