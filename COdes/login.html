@@ -18,11 +18,10 @@
             <div class="sidebar-logo">MyGallery</div>
             <ul class="sidebar-links">
                 <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
-                
                 <li><a href="favorites.html"><i class="fas fa-heart"></i> Favourites</a></li>
                 <li><a href="home.html"><i class="fas fa-search"></i> Explore</a></li>
                 <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li><a href="home.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </aside>
 
@@ -107,36 +106,14 @@
             const username = document.getElementById('login-username').value;
             const password = document.getElementById('login-password').value;
     
-            // Send login request to login.php
-            fetch('http://localhost/WebFinal/codes/login.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                }),
-            })
-            .then(response => {
-                if (!response.ok){
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    // Login successful, redirect to profile page or display success message
-                    window.location.href = 'profile.html'; // Redirect to profile.html on success
-                } else {
-                    // Show error message if login failed
-                    alert(data.message);
-                }
-            })
-            .catch((error) => {
-                console.error('Login Error:', error);
-                alert('An error occurred. Please try again.');
-            });
+            // Simulating successful login by checking if username and password are not empty
+            if (username && password) {
+                // Redirect to profile.html on success
+                window.location.href = 'profile.html'; 
+            } else {
+                // Show error message if fields are empty
+                alert('Please enter both username and password.');
+            }
         });
     
         // Register form submission
@@ -153,33 +130,12 @@
                 return;
             }
     
-            // Send register request to register.php
-            fetch('http://localhost/WebFinal/codes/register.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    password: password,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Registration successful, redirect to login page or display success message
-                    window.location.href = 'login.html'; // Redirect to login.html on success
-                } else {
-                    // Show error message if registration failed
-                    alert(data.message);
-                }
-            })
-            .catch((error) => {
-                console.error('Registration Error:', error);
-                alert('An error occurred. Please try again later.');
-
-            });
+            // Simulating successful registration by redirecting to login page
+            if (username && email && password) {
+                window.location.href = 'login.html'; 
+            } else {
+                alert('Please fill out all the fields.');
+            }
         });
     
         // Toggle login/register forms
@@ -213,6 +169,5 @@
         });
     </script>
     
-   
 </body>
 </html>
