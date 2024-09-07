@@ -96,5 +96,29 @@
     <footer>
         <p>&copy; 2024 MyGallery. All rights reserved.</p>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('fetch_users.php')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+        
+                if (data.users_data && data.users_data.length > 0) {
+                    const profileInfo = document.querySelector('.profile-info');
+                    const user = data.users_data[0]; 
+    
+                    profileInfo.innerHTML = `
+                        <h1>${user.username}</h1>
+                        <p>@${user.username}</p>
+                        <p>Photographer & Art Enthusiast</p>
+                    `;
+                } else {
+                    console.log('No user data found');
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+    
 </body>
 </html>
