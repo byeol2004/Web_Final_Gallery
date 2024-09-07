@@ -118,7 +118,12 @@
                     password: password,
                 }),
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok){
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     // Login successful, redirect to profile page or display success message
@@ -130,6 +135,7 @@
             })
             .catch((error) => {
                 console.error('Login Error:', error);
+                alert('An error occurred. Please try again.');
             });
         });
     
