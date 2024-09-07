@@ -100,33 +100,15 @@
     </div>
     
     <script>
-        function showForm(formType) {
-            const loginForm = document.getElementById('login-form');
-            const registerForm = document.getElementById('register-form');
-            const loginButton = document.querySelector('.tab-button.active');
-            const registerButton = document.querySelector('.tab-button:not(.active)');
-
-            if (formType === 'login') {
-                loginForm.style.display = 'block';
-                registerForm.style.display = 'none';
-                loginButton.classList.add('active');
-                registerButton.classList.remove('active');
-            } else if (formType === 'register') {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-                loginButton.classList.remove('active');
-                registerButton.classList.add('active');
-            }
-        }
-
         // Login form submission
         document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
+            event.preventDefault(); // Prevent default form submission
+    
             const username = document.getElementById('login-username').value;
             const password = document.getElementById('login-password').value;
-
-            fetch('http://localhost/gallery/Backend/database/api/u_login.php', {
+    
+            // Send login request to login.php
+            fetch('http://localhost/WebFinal/codes/login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -138,28 +120,35 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Login Success:', data);
+                if (data.success) {
+                    // Login successful, redirect to profile page or display success message
+                    window.location.href = 'profile.html'; // Redirect to profile.html on success
+                } else {
+                    // Show error message if login failed
+                    alert(data.message);
+                }
             })
             .catch((error) => {
                 console.error('Login Error:', error);
             });
         });
-
+    
         // Register form submission
         document.getElementById('register-form').addEventListener('submit', function(event) {
             event.preventDefault();
-
+    
             const username = document.getElementById('register-username').value;
             const email = document.getElementById('register-email').value;
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-confirm-password').value;
-
+    
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');
                 return;
             }
-
-            fetch('http://localhost/gallery/Backend/database/api/u_login.php', {
+    
+            // Send register request to register.php
+            fetch('http://localhost/WebFinal/codes/register.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -172,59 +161,52 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Registration Success:', data);
+                if (data.success) {
+                    // Registration successful, redirect to login page or display success message
+                    window.location.href = 'login.html'; // Redirect to login.html on success
+                } else {
+                    // Show error message if registration failed
+                    alert(data.message);
+                }
             })
             .catch((error) => {
                 console.error('Registration Error:', error);
+                alert('An error occurred. Please try again later.');
+
             });
         });
-            // fetch('/api/register', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         username: username,
-            //         email: email,
-            //         password: password,
-            //     }),
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     console.log('Registration Success:', data);
-            // })
-            // .catch((error) => {
-            //     console.error('Registration Error:', error);
-            // });
-
-            function showForm(formType) {
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const loginButton = document.querySelector('.tab-button.active');
-    const registerButton = document.querySelector('.tab-button:not(.active)');
-
-    if (formType === 'login') {
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-        loginButton.classList.add('active');
-        registerButton.classList.remove('active');
-    } else if (formType === 'register') {
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
-        loginButton.classList.remove('active');
-        registerButton.classList.add('active');
-    }
-}
-const sidebarToggleBtn = document.getElementById('sidebar-toggle');
-const sidebar = document.getElementById('sidebar');
-const mainContent = document.querySelector('.main-content');
-
-sidebarToggleBtn.addEventListener('click', function() {
-    sidebar.classList.toggle('active');  // Show/hide the sidebar
-    mainContent.classList.toggle('shifted');  // Shift the main content accordingly
-});
-
+    
+        // Toggle login/register forms
+        function showForm(formType) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const loginButton = document.querySelector('.tab-button.active');
+            const registerButton = document.querySelector('.tab-button:not(.active)');
+    
+            if (formType === 'login') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                loginButton.classList.add('active');
+                registerButton.classList.remove('active');
+            } else if (formType === 'register') {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                loginButton.classList.remove('active');
+                registerButton.classList.add('active');
+            }
+        }
+    
+        // Sidebar toggle logic
+        const sidebarToggleBtn = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('.main-content');
+    
+        sidebarToggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');  // Show/hide the sidebar
+            mainContent.classList.toggle('shifted');  // Shift the main content accordingly
+        });
     </script>
+    
    
 </body>
 </html>

@@ -1,40 +1,67 @@
+
 <?php
 include('db.php');
 
-header('Content-Type: application/json');
+// Add CORS headers to allow cross-origin requests
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header('Content-Type: application/json');  // Ensure the content type is JSON
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
-    $data = json_decode(file_get_contents('php://input'), true);
+try {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $data = json_decode(file_get_contents('php://input'), true);
 
-    if (isset($data['username']) && isset($data['email']) && isset($data['password'])) {
-        $username = $conn->real_escape_string($data['username']);
-        $email = $conn->real_escape_string($data['email']);
-        $password = password_hash($data['password'], PASSWORD_BCRYPT);
+        if (isset($data['username']) && isset($data['email']) && isset($data['password'])) {
+            $username = $conn->real_escape_string($data['username']);
+            $email = $conn->real_escape_string($data['email']);
+            $password = password_hash($data['password'], PASSWORD_BCRYPT);
 
-        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+            $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
 
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode([
-                'success' => true,
-                'message' => 'Registration successful'
-            ]);
+            if ($conn->query($sql) === TRUE) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Registration successful'
+                ]);
+            } else {
+                // Return SQL error in JSON
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Error: ' . $conn->error
+                ]);
+            }
         } else {
+            // Return missing fields error
             echo json_encode([
                 'success' => false,
-                'message' => 'Error: ' . $conn->error
+                'message' => 'Invalid input. Please fill all the required fields.'
             ]);
         }
     } else {
+        // Invalid request method
         echo json_encode([
             'success' => false,
-            'message' => 'Invalid input. Please fill all the required fields.'
+            'message' => 'Invalid request method.'
         ]);
     }
-} else {
+} catch (Exception $e) {
+    // In case of exception, return a JSON error message
     echo json_encode([
         'success' => false,
-        'message' => 'Invalid request method.'
+        'message' => 'Server error: ' . $e->getMessage()
     ]);
 }
+
+// Disable display errors to avoid HTML output in JSON response
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
+
 ?>
