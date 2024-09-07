@@ -116,28 +116,40 @@
             }
         });
     
-        // Register form submission
+        //Register form submission
         document.getElementById('register-form').addEventListener('submit', function(event) {
             event.preventDefault();
-    
+
             const username = document.getElementById('register-username').value;
             const email = document.getElementById('register-email').value;
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-confirm-password').value;
-    
+
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');
                 return;
             }
-    
-            // Simulating successful registration by redirecting to login page
-            if (username && email && password) {
-                window.location.href = 'login.html'; 
-            } else {
-                alert('Please fill out all the fields.');
-            }
+
+            fetch('http://localhost/WebFinal/register.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Registration Success:', data);
+            })
+            .catch((error) => {
+                console.error('Registration Error:', error);
+            });
         });
-    
+
         // Toggle login/register forms
         function showForm(formType) {
             const loginForm = document.getElementById('login-form');
