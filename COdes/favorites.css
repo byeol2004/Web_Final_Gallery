@@ -1,0 +1,255 @@
+body, html, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #b5c6e0; 
+    color: #333;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -300px; /* Hidden by default */
+    transition: left 0.3s ease, background-color 0.3s ease;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 3px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+}
+
+.sidebar.active {
+    left: 0; /* Shows the sidebar when active */
+}
+.main-content.shifted {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+.sidebar-logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+    background-color: #b5c6e0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-links li {
+    margin-bottom: 20px;
+}
+
+.sidebar-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    background-color: #507dbc;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    gap: 10px; /* Adds space between icon and text */
+}
+
+/* Toggle sidebar button */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #103783;
+    border: none;
+    color: #fff;
+    padding: 12px 16px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 10px;
+    z-index: 1002; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: #507dbc;
+    transform: rotate(90deg); 
+}
+
+/* Adjust when sidebar is active */
+.sidebar.active + .main-content {
+    margin-left: 250px;
+}
+
+/* Additional spacing adjustments */
+header {
+    z-index: 1000; 
+}
+
+/* Main content */
+.main-content {
+    flex-grow: 1;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+/* Sticky Navigation Bar */
+header {
+    background: linear-gradient(to bottom, #b5c6e0, #ebf4f5);
+    padding: 20px;
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.top-nav {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.top-nav li {
+    position: relative;
+    margin-left: 20px;
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 400;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+    font-size: 18px; /* Adjust based on your icon size */
+}
+
+.top-nav a:hover {
+    color: #103783;
+    transform: scale(1.1); /* Slightly enlarges the icon */
+    text-shadow: 0 0 8px #103783; /* Adds a soft glow */
+}
+
+.top-nav li:hover::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+/* Content Styling */
+h1 {
+    font-size: 32px;
+    color: #343a40;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+/* Date Section Styling */
+.gallery-date {
+    margin-bottom: 40px;
+    margin-left: 50px;
+}
+
+.gallery-date h2 {
+    font-size: 24px;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+/* Gallery Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+
+.image-info {
+    text-align: center;
+    padding: 10px;
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+}
+
+.image-info p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #b5c6e0;
+    padding: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.footer-content {
+    font-size: 14px;
+}
+
+.footer-links a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}

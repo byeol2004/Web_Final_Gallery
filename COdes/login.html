@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="toggle-sidebar">
+        <button id="sidebar-toggle" class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">MyGallery</div>
+            <ul class="sidebar-links">
+                <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                
+                <li><a href="favourite.html"><i class="fas fa-heart"></i> Favourites</a></li>
+                <li><a href="home.html"><i class="fas fa-search"></i> Explore</a></li>
+                <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <div class="main-content">
+            <header>
+                <nav>
+                    <ul class="top-nav">
+                        <li data-text="Home"><a href="home.html"><i class="fa-solid fa-house-chimney"></i></a></li>
+                        <li data-text="Upload"><a href="upload.html"><i class="fa-solid fa-cloud-arrow-up"></i></a></li>
+                        <li data-text="Gallery"><a href="gallery.html"><i class="fa-solid fa-photo-film"></i></a></li>
+                        <li data-text="Albums"><a href="albums.html"><i class="fa-solid fa-folder-plus"></i></a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <section class="auth-section">
+                    <div class="auth-tabs">
+                        <button class="tab-button active" onclick="showForm('login')">Login</button>
+                        <button class="tab-button" onclick="showForm('register')">Register</button>
+                    </div>
+
+                    <div class="auth-forms">
+                        <!-- Login Form -->
+                        <form id="login-form" class="auth-form">
+                            <h1>Login</h1>
+                            <div class="form-group">
+                                <label for="login-username">Username:</label>
+                                <input type="text" id="login-username" name="username" placeholder="Enter your username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Password:</label>
+                                <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="auth-btn">Login</button>
+                            <p>Don't have an account? <a href="#" onclick="showForm('register')">Register here</a></p>
+                        </form>
+
+                        <!-- Registration Form -->
+                        <form id="register-form" class="auth-form" style="display: none;">
+                            <h1>Register</h1>
+                            <div class="form-group">
+                                <label for="register-username">Username:</label>
+                                <input type="text" id="register-username" name="username" placeholder="Enter your username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-email">Email:</label>
+                                <input type="email" id="register-email" name="email" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-password">Password:</label>
+                                <input type="password" id="register-password" name="password" placeholder="Enter your password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-confirm-password">Confirm Password:</label>
+                                <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                            </div>
+                            <button type="submit" class="auth-btn">Register</button>
+                            <p>Already have an account? <a href="#" onclick="showForm('login')">Login here</a></p>
+                        </form>
+                    </div>
+                </section>
+            </main>
+
+            <footer>
+                <div class="footer-content">
+                    <p>&copy; 2024 MyGallery. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <script>
+        function showForm(formType) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const loginButton = document.querySelector('.tab-button.active');
+            const registerButton = document.querySelector('.tab-button:not(.active)');
+
+            if (formType === 'login') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                loginButton.classList.add('active');
+                registerButton.classList.remove('active');
+            } else if (formType === 'register') {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                loginButton.classList.remove('active');
+                registerButton.classList.add('active');
+            }
+        }
+
+        // Login form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            fetch('http://localhost/gallery/Backend/database/api/u_login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Login Success:', data);
+            })
+            .catch((error) => {
+                console.error('Login Error:', error);
+            });
+        });
+
+        // Register form submission
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            fetch('http://localhost/gallery/Backend/database/api/u_login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Registration Success:', data);
+            })
+            .catch((error) => {
+                console.error('Registration Error:', error);
+            });
+        });
+            // fetch('/api/register', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         username: username,
+            //         email: email,
+            //         password: password,
+            //     }),
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Registration Success:', data);
+            // })
+            // .catch((error) => {
+            //     console.error('Registration Error:', error);
+            // });
+
+            function showForm(formType) {
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const loginButton = document.querySelector('.tab-button.active');
+    const registerButton = document.querySelector('.tab-button:not(.active)');
+
+    if (formType === 'login') {
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        loginButton.classList.add('active');
+        registerButton.classList.remove('active');
+    } else if (formType === 'register') {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        loginButton.classList.remove('active');
+        registerButton.classList.add('active');
+    }
+}
+const sidebarToggleBtn = document.getElementById('sidebar-toggle');
+const sidebar = document.getElementById('sidebar');
+const mainContent = document.querySelector('.main-content');
+
+sidebarToggleBtn.addEventListener('click', function() {
+    sidebar.classList.toggle('active');  // Show/hide the sidebar
+    mainContent.classList.toggle('shifted');  // Shift the main content accordingly
+});
+
+    </script>
+   
+</body>
+</html>

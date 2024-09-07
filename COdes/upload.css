@@ -1,0 +1,266 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #b5c6e0; 
+    color: #333;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -300px; /* Hidden by default */
+    transition: left 0.3s ease, background-color 0.3s ease;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 3px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+}
+
+.sidebar.active {
+    left: 0; /* Shows the sidebar when active */
+}
+.main-content.shifted {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+.sidebar-logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+    background-color: #b5c6e0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Cute card-like shadow */
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+    
+}
+
+.sidebar-links li {
+    margin-bottom: 20px;
+}
+
+.sidebar-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    background-color: #507dbc;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    gap: 10px; /* Adds space between icon and text */
+}
+
+/* Toggle sidebar button */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #103783;
+    border: none;
+    color: #fff;
+    padding: 12px 16px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 10px;
+    z-index: 1002; /* Ensure button is above other content */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    
+}
+
+.sidebar-toggle:hover {
+    background-color: #507dbc;
+    transform: rotate(90deg); /* Cute rotation effect */
+}
+
+
+
+/* Adjust when sidebar is active */
+.sidebar.active + .main-content {
+    margin-left: 250px;
+}
+
+/* Main content */
+.main-content {
+    flex-grow: 1;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+/* Sticky Navigation Bar */
+header {
+    background: linear-gradient(to bottom, #b5c6e0, #ebf4f5);
+    padding: 20px;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.top-nav {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.top-nav li {
+    position: relative;
+    margin-left: 20px;
+}
+
+/* Cute Hover Effect for Top Nav Icons */
+.top-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 400;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+    font-size: 24px; /* Adjust based on your icon size */
+}
+
+.top-nav a:hover {
+    color: #103783;
+    transform: scale(1.2); /* Slightly enlarges the icon */
+    text-shadow: 0 0 8px #103783; /* Adds a soft glow */
+}
+
+/* Hover Text Effect for Top Nav */
+.top-nav li::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    color: #103783;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0;
+    white-space: nowrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.top-nav li:hover::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+
+.upload-section {
+    padding: 50px 20px;
+    background-color: #ebf4f5;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+    flex-grow: 1;
+}
+
+.upload-section h1 {
+    font-size: 32px;
+    color: #b5c6e0;
+    margin-bottom: 30px;
+}
+
+.upload-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input[type="file"],
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input[type="file"]:focus,
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    border-color: #103783;
+    box-shadow: 0 0 5px rgba(251, 111, 146, 0.5);
+}
+
+.upload-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #103783;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 100%;
+}
+
+.upload-btn:hover {
+    background-color: #b5c6e0;
+    transform: scale(1.05);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #b5c6e0;
+    color: #fff;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

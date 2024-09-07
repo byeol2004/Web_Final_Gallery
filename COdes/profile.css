@@ -1,0 +1,255 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #f5f5f5, #103783);
+    color: #333;
+}
+
+.container {
+    display: flex;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 280px;
+    background: #b5c6e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    height: 100vh;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    border-right: 2px solid #103783;
+    border-radius: 15px;
+}
+
+.sidebar-logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #103783;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-links li {
+    margin-bottom: 15px;
+}
+
+.sidebar-links a {
+    text-decoration: none;
+    color: #103783;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+    padding: 12px;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+.sidebar-links a:hover {
+    color: #103783;
+    transform: scale(1.1); /* Slightly enlarges the icon */
+    text-shadow: 0 0 8px #103783; /* Adds a soft glow */
+}
+
+/* Main content */
+.main-content {
+    flex-grow: 1;
+    background: #ebf4f5;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sticky Navigation Bar */
+header {
+    background: #b5c6e0;
+    padding: 15px 20px;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid #103783;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.top-nav {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.top-nav li {
+    position: relative;
+    margin-left: 20px;
+}
+
+/* Cute Hover Effect for Top Nav Icons */
+.top-nav a {
+    text-decoration: none;
+    color: #103783;
+    font-weight: 400;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+    font-size: 24px; /* Adjust based on your icon size */
+}
+
+.top-nav a:hover {
+    color: #103783;
+    transform: scale(1.2); /* Slightly enlarges the icon */
+    text-shadow: 0 0 8px #103783; /* Adds a soft glow */
+}
+
+/* Hover Text Effect for Top Nav */
+.top-nav li::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    color: #103783;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0;
+    white-space: nowrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.top-nav li:hover::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+/* Profile Page Styles */
+.profile {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid #103783;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border: 6px solid #103783;
+}
+
+.profile-info {
+    margin-left: 20px;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #103783;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.profile-statistics {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.stat {
+    text-align: center;
+    background: #9bafd9;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #103783;
+}
+
+.stat p {
+    font-size: 24px;
+    font-weight: 600;
+    color: #103783;
+}
+
+.profile-bio {
+    margin-bottom: 20px;
+}
+
+.profile-bio h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #103783;
+}
+
+.profile-bio p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.profile-feed h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #103783;
+}
+
+.feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.feed-item {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.feed-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+
+footer {
+    background: #b5c6e0;
+    padding: 15px;
+    text-align: center;
+    border-top: 2px solid #103783;
+    border-radius: 15px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    color: #555;
+}
