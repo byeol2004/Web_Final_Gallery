@@ -18,7 +18,6 @@
             <div class="sidebar-logo">MyGallery</div>
             <ul class="sidebar-links">
                 <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
-             
                 <li><a href="favourite.html"><i class="fas fa-heart"></i> Favourites</a></li>
                 <li><a href="home.html"><i class="fas fa-search"></i> Explore</a></li>
                 <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
@@ -41,18 +40,26 @@
             <main>
                 <section class="upload-section">
                     <h1>Upload Your Photo</h1>
-                    <form action="GalleryOne/database/api/p_upload.php" method="post" enctype="multipart/form-data" class="upload-form">
+                    <form action="upload.php" method="post" enctype="multipart/form-data" class="upload-form">
                         <div class="form-group">
                             <label for="photo">Choose Photo:</label>
-                            <input type="file" id="photo" name="photo" accept="image/*" required>
+                            <input type="file" id="photo" name="image" accept="image/*" required>
                         </div>
                         <div class="form-group">
                             <label for="caption">Caption:</label>
-                            <input type="text" id="caption" name="caption" placeholder="Enter a caption" required>
+                            <input type="text" id="caption" name="title" placeholder="Enter a caption" required>
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
                             <textarea id="description" name="description" rows="5" placeholder="Enter a description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="album">Select Album:</label>
+                            <select name="album_id" id="album" required>
+                                <!-- Dynamically populate with user's albums -->
+                                <option value="1">Album 1</option>
+                                <option value="2">Album 2</option>
+                            </select>
                         </div>
                         <button type="submit" class="upload-btn">Upload Photo</button>
                     </form>
@@ -64,16 +71,16 @@
             </footer>
         </div>
     </div>
-   
+
     <script>
         const sidebarToggleBtn = document.getElementById('sidebar-toggle');
-const sidebar = document.getElementById('sidebar');
-const mainContent = document.querySelector('.main-content');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('.main-content');
 
-sidebarToggleBtn.addEventListener('click', function() {
-    sidebar.classList.toggle('active');  // Show/hide the sidebar
-    mainContent.classList.toggle('shifted');  // Shift the main content accordingly
-});
+        sidebarToggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');  // Show/hide the sidebar
+            mainContent.classList.toggle('shifted');  // Shift the main content accordingly
+        });
     </script>
 </body>
 </html>

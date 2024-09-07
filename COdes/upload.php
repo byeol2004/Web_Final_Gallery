@@ -1,26 +1,39 @@
 <?php
 include('db.php');
-
-// Start the session
 session_start();
 
+// Ensure user is logged in
+if (!isset($_SESSION['user_id'])) {
+    echo "You must be logged in to upload photos.";
+    exit();
+}
+
+$userId = $_SESSION['user_id'];
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $userId = $_SESSION['user_id']; // Assuming you have a logged-in user
     $title = $_POST['title'];
     $description = $_POST['description'];
     $albumId = $_POST['album_id'];
     
+    // Check if the upload directory exists
     $targetDir = "uploads/";
-    $targetFile = $targetDir . basename($_FILES["image"]["name"]);
-    $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0777, true);  // Create directory if it doesn't exist
+    }
 
-    // Check if image file is a actual image or fake image
+    $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+    // Check if image file is an actual image
     $check = getimagesize($_FILES["image"]["tmp_name"]);
-    if($check !== false) {
+    if ($check !== false) {
+        // Move the file to the uploads directory
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-            $sql = "INSERT INTO photos (user_id, album_id, title, description, image_path) VALUES ('$userId', '$albumId', '$title', '$description', '$targetFile')";
+            // Insert the photo data into the database
+            $sql = "INSERT INTO photos (user_id, album_id, title, description, image_path) 
+                    VALUES ('$userId', '$albumId', '$title', '$description', '$targetFile')";
             if ($conn->query($sql) === TRUE) {
-                echo "The file ". htmlspecialchars(basename($_FILES["image"]["name"])). " has been uploaded.";
+                echo "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded successfully.";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
@@ -32,14 +45,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
-<!-- HTML Form for image upload -->
-<form action="upload.php" method="post" enctype="multipart/form-data">
-    <input type="text" name="title" placeholder="Title" required><br>
-    <textarea name="description" placeholder="Description"></textarea><br>
-    <select name="album_id">
-        <!-- Populate with user's albums -->
-    </select><br>
-    <input type="file" name="image" required><br>
-    <input type="submit" value="Upload Image">
-</form>
